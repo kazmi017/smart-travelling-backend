@@ -73,8 +73,8 @@ app.post("/SignUp", (req , res )=>{
     })
     
 })
-
-app.listen(9002,()=>{
+const port = process.env.PORT || 5000;
+app.listen(port,()=>{
     console.log("BE started at port 9002");
 })
 
