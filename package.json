@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "homepage": "https://vast-journey-06976.herokuapp.com",
   "engines": {
     "node": "14.19.x",
     "npm": "6.14.x"
