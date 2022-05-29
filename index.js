@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
     lName:String,
     email:String,
     dob:String,
-    password:String
+    password:String,
+    pet:String
 
 })
 const notifSchema = new mongoose.Schema({
@@ -83,6 +84,7 @@ const carBookSchema = new mongoose.Schema({
 })
 
 const User = new mongoose.model('User', userSchema)
+
 const Car = new mongoose.model('Car', carSchema)
 const Trip = new mongoose.model('Trip', tripSchema)
 const Hotel = new mongoose.model('Hotel', hotelSchema)
@@ -141,7 +143,7 @@ app.post("/SignUp", (req , res )=>{
             message:"Data Required"
         })
       }else{
-    const {fName ,lName , email, dob , password} = req.body
+    const {fName ,lName , email, dob , password,pet} = req.body
     console.log(req.body)
     User.findOne({email:email},(err,user)=>{
         if(user){
@@ -153,7 +155,8 @@ app.post("/SignUp", (req , res )=>{
                 lName,
                 email,
                 dob,
-                password
+                password,
+                pet
             })
             user.save( err =>{
                 if(err){
