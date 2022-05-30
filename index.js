@@ -86,6 +86,23 @@ const carBookSchema = new mongoose.Schema({
 
 })
 
+const soloSchema= new mongoose.Schema({
+    origin:String,
+    destination:String,
+    days:String,
+    email:String,
+    carengine:String,
+    carav:String,
+    cartype:String,
+    carname:String,
+    fuelprice:String,
+    breakfast:String,
+    lunch:String,
+    supper:String,
+    dinner:String
+
+})
+
 const User = new mongoose.model('User', userSchema)
 
 const Car = new mongoose.model('Car', carSchema)
@@ -96,6 +113,7 @@ const Notif = new mongoose.model('Notification', notifSchema)
 const CarB = new mongoose.model('CarBook', carBookSchema)
 const TripB = new mongoose.model('TripBook', tripBookSchema)
 const HotelB = new mongoose.model('HotelBook', hotelBookSchema)
+const Solo = new mongoose.model('SoloBook', soloSchema)
 
 app.get('/home', (req, res) => res.send('Hello world!'));
 
@@ -534,6 +552,69 @@ app.post("/HotelBook",(req,res)=>{
 
 app.get("/HotelBook",(req,res)=>{
     HotelB.find().then(function(results){
+        res.send(results);
+    }).catch(function(err){
+        console.error(err);
+    });
+})
+
+app.post("/SoloBook",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const {
+            origin,
+            destination,
+            days,
+            email,
+            carengine,
+            carav,
+            cartype,
+            carname,
+            fuelprice,
+            breakfast,
+            lunch,
+            supper,
+            dinner
+        
+        } = req.body
+            const soloB=new Solo(
+                {
+                    origin,
+                    destination,
+                    days,
+                    email,
+                    carengine,
+                    carav,
+                    cartype,
+                    carname,
+                    fuelprice,
+                    breakfast,
+                    lunch,
+                    supper,
+                    dinner
+                
+                }
+             )
+            soloB.save(err =>{
+                if(err){
+                    res.send(err)
+                }
+                else{
+                    res.send({
+                        message : "Successfully Created"
+                    })
+            }
+        })
+
+      }
+})
+
+app.get("/SoloBook",(req,res)=>{
+    Solo.find().then(function(results){
         res.send(results);
     }).catch(function(err){
         console.error(err);
