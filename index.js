@@ -524,6 +524,24 @@ app.get("/CarBook",(req,res)=>{
     });
 })
 
+app.delete("/CarBook",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            CarB.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
+})
+
 app.post("/HotelBook",(req,res)=>{
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
         console.log('Object missing');
@@ -573,6 +591,24 @@ app.get("/HotelBook",(req,res)=>{
     }).catch(function(err){
         console.error(err);
     });
+})
+
+app.delete("/HotelBook",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            CarB.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
 })
 
 app.post("/SoloBook",(req,res)=>{
