@@ -10,8 +10,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
-// const connection = "mongodb://localhost:27017/smartTravellingDB"
-const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
+const connection = "mongodb://localhost:27017/smartTravellingDB"
+// const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect( connection ,{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -455,6 +455,23 @@ app.get("/TripBook",(req,res)=>{
         console.error(err);
     });
 })
+app.delete("/TripBook",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            TripB.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
+})
 
 app.post("/CarBook",(req,res)=>{
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
@@ -620,6 +637,7 @@ app.get("/SoloBook",(req,res)=>{
         console.error(err);
     });
 })
+
 
 
 const port = process.env.PORT || 5002;
