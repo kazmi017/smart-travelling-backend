@@ -601,7 +601,7 @@ app.delete("/HotelBook",(req,res)=>{
         })
       }else{
         const { _id} = req.body
-            CarB.deleteOne({ '_id': _id }).then(function(results){
+            HotelB.deleteOne({ '_id': _id }).then(function(results){
                 res.send(results);
             }).catch(function(err){
                 console.error(err);
