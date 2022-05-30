@@ -76,7 +76,7 @@ const carSchema = new mongoose.Schema({
 
 })
 const carBookSchema = new mongoose.Schema({
-    orgin:String,
+    origin:String,
     destination:String,
     days:String,
     email:String,
