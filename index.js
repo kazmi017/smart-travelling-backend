@@ -64,9 +64,9 @@ const hotelBookSchema = new mongoose.Schema({
     ina:String,
     out:String,
     rooms:String,
-    type:String
-    //add name
-    // date
+    type:String,
+    name:String,
+    date:String
 
 })
 const carSchema = new mongoose.Schema({
