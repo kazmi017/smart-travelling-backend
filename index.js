@@ -10,8 +10,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
-// const connection = "mongodb://localhost:27017/smartTravellingDB"
-const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
+const connection = "mongodb://localhost:27017/smartTravellingDB"
+// const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect( connection ,{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -39,6 +39,7 @@ const tripSchema = new mongoose.Schema({
     date:String,
     seats:String,
     src:String
+    // price lgany hy
 
 })
 const tripBookSchema = new mongoose.Schema({
@@ -64,6 +65,8 @@ const hotelBookSchema = new mongoose.Schema({
     out:String,
     rooms:String,
     type:String
+    //add name
+    // date
 
 })
 const carSchema = new mongoose.Schema({
@@ -340,8 +343,7 @@ app.get("/User",(req,res)=>{
 })
 
 //User Details
-app.get("/UserDs",(req,res)=>{
-
+app.post("/UserDsT",(req,res)=>{
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
         console.log('Object missing');
         res.send({
@@ -349,14 +351,49 @@ app.get("/UserDs",(req,res)=>{
         })
       }else{
         const { email } = req.body
-        User.findOne({email:email},(err,user)=>{
-            if(user){
-                res.send(user);
-            }
-            else{
-                res.send({message:"User not Found"})
-            }
-    })
+
+        TripB.find( {email: email},{}).then(function(results){
+            res.send(results);
+            console.log(results)
+        }).catch(function(err){
+            console.error(err);
+        });
+
+      }
+})
+app.post("/UserDsH",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { email } = req.body
+
+        HotelB.find( {email: email},{}).then(function(results){
+            res.send(results);
+            console.log(results)
+        }).catch(function(err){
+            console.error(err);
+        });
+
+      }
+})
+app.post("/UserDsC",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { email } = req.body
+
+        CarB.find( {email: email},{}).then(function(results){
+            res.send(results);
+            console.log(results)
+        }).catch(function(err){
+            console.error(err);
+        });
 
       }
 })
