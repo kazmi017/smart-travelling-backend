@@ -482,7 +482,7 @@ app.put("/TripBook",(req,res)=>{
         const { _id,seats} = req.body
         var myquery = { _id: _id };
         var newvalues = { $set: {seats: seats} };
-            TripB.updateOne(myquery, newvalues).then(function(results){
+            Trip.updateOne(myquery, newvalues).then(function(results){
                 res.send(results);
             }).catch(function(err){
                 console.error(err);
