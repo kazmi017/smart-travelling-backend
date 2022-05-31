@@ -116,7 +116,7 @@ const HotelB = new mongoose.model('HotelBook', hotelBookSchema)
 const Solo = new mongoose.model('SoloBook', soloSchema)
 
 app.get('/home', (req, res) => {
-    Trip.remove({}).then(function(results){
+    User.remove({}).then(function(results){
         res.send(results);
     }).catch(function(err){
         console.error(err);
