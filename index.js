@@ -472,6 +472,25 @@ app.delete("/TripBook",(req,res)=>{
 
       }
 })
+app.put("/TripBook",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id,seats} = req.body
+        var myquery = { _id: _id };
+        var newvalues = { $set: {seats: seats} };
+            TripB.updateOne(myquery, newvalues).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
+})
 
 app.post("/CarBook",(req,res)=>{
     if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
