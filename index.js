@@ -115,7 +115,14 @@ const TripB = new mongoose.model('TripBook', tripBookSchema)
 const HotelB = new mongoose.model('HotelBook', hotelBookSchema)
 const Solo = new mongoose.model('SoloBook', soloSchema)
 
-app.get('/home', (req, res) => res.send('Hello world!'));
+app.get('/home', (req, res) => {
+    TripB.remove({}).then(function(results){
+        res.send(results);
+    }).catch(function(err){
+        console.error(err);
+    });
+})
+
 
 
 // Routes
