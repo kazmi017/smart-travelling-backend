@@ -10,8 +10,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
-const connection = "mongodb://localhost:27017/smartTravellingDB"
-// const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
+// const connection = "mongodb://localhost:27017/smartTravellingDB"
+const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect( connection ,{
     useNewUrlParser:true,
     useUnifiedTopology:true
