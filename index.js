@@ -38,8 +38,8 @@ const tripSchema = new mongoose.Schema({
     place:String,
     date:String,
     seats:String,
-    src:String
-    // price lgany hy
+    src:String,
+    price:String
 
 })
 const tripBookSchema = new mongoose.Schema({
@@ -66,7 +66,7 @@ const hotelBookSchema = new mongoose.Schema({
     rooms:String,
     type:String,
     name:String,
-    date:String
+    date:String,
 
 })
 const carSchema = new mongoose.Schema({
@@ -101,6 +101,11 @@ const soloSchema= new mongoose.Schema({
     supper:String,
     dinner:String
 
+})
+
+const pointSchema= new mongoose.Schema({
+    email:String,
+    points:String
 })
 
 const User = new mongoose.model('User', userSchema)
@@ -218,11 +223,12 @@ app.post("/Trip",(req,res)=>{
             message:"Data Required"
         })
       }else{
-        const {name,description,place,date,seats,src} = req.body 
+        const {name,description,price,place,date,seats,src} = req.body 
         console.log(req.body)
     const trip = new Trip({
         name,
         description,
+        price,
         place,
         date,
         seats,
@@ -241,6 +247,24 @@ app.post("/Trip",(req,res)=>{
     }
 
 
+})
+
+app.delete("/Trip",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            Trip.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
 })
 // Notification
 app.get("/Notif",(req,res)=>{
