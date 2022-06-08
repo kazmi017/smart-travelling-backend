@@ -10,8 +10,8 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
-// const connection = "mongodb://localhost:27017/smartTravellingDB"
-const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
+const connection = "mongodb://localhost:27017/smartTravellingDB"
+// const connection = "mongodb+srv://fyp2022:ptdmptdm5124@cluster0.sbe6i.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect( connection ,{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -303,6 +303,23 @@ app.post("/Notif",(req,res)=>{
 
 
 })
+app.delete("/Notif",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            Notif.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
+})
 //Car
 app.get("/Car",(req,res)=>{
     Car.find().then(function(results){
@@ -340,6 +357,24 @@ app.post("/Car",(req,res)=>{
     }
 
 
+})
+
+app.delete("/Car",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            Car.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
 })
 
 //Hotel
@@ -380,6 +415,23 @@ app.post("/Hotel",(req,res)=>{
     }
 
 
+})
+app.delete("/Hotel",(req,res)=>{
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        console.log('Object missing');
+        res.send({
+            message:"Data Required"
+        })
+      }else{
+        const { _id} = req.body
+            Hotel.deleteOne({ '_id': _id }).then(function(results){
+                res.send(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+        
+
+      }
 })
 
 //User
